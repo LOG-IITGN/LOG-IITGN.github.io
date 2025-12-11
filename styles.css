@@ -27,7 +27,10 @@ body {
 
 /* Navigation Bar */
 .navbar {
-    background: var(--primary-color);
+    background: rgba(30, 58, 138, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     color: white;
     padding: 1rem 0;
     position: sticky;
@@ -86,7 +89,11 @@ body {
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(135deg, var(--primary-color) 0%, #1e40af 100%);
+    background: linear-gradient(135deg, rgba(30, 58, 138, 0.85) 0%, rgba(30, 64, 175, 0.85) 100%), 
+                url('514408086_1030849889158955_3815428664258281688_n.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     color: white;
     padding: 8rem 2rem;
     text-align: center;
@@ -94,6 +101,21 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('514408086_1030849889158955_3815428664258281688_n.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: blur(8px);
+    z-index: -1;
 }
 
 .hero-content h1 {
@@ -101,18 +123,27 @@ body {
     margin-bottom: 1rem;
     font-weight: 800;
     letter-spacing: -1px;
+    position: relative;
+    z-index: 1;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .hero-subtitle {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
     opacity: 0.95;
+    position: relative;
+    z-index: 1;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .hero-dates {
     font-size: 1.25rem;
     margin-bottom: 2rem;
     opacity: 0.9;
+    position: relative;
+    z-index: 1;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .hero-buttons {
@@ -120,6 +151,8 @@ body {
     gap: 1.5rem;
     justify-content: center;
     flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
 }
 
 /* Buttons */
@@ -210,41 +243,96 @@ body {
     margin-bottom: 0.5rem;
 }
 
-/* Dates Grid */
-.dates-grid {
+/* Important Dates & Location Grid */
+.dates-location-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
     margin-top: 2rem;
 }
 
-.date-card {
+.subsection-title {
+    font-size: 1.75rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+.dates-container,
+.location-container {
     background: white;
     padding: 2rem;
-    border-radius: 0.75rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    text-align: center;
-    transition: all 0.3s ease;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-.date-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+/* Important Dates List */
+.dates-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-.date-card h4 {
+.dates-list li {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    padding: 0.875rem 0;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-dark);
+    position: relative;
+    padding-left: 1.75rem;
+}
+
+.dates-list li:last-child {
+    border-bottom: none;
+}
+
+.dates-list li::before {
+    content: '•';
     color: var(--primary-color);
-    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    top: 0.875rem;
 }
 
-.date-card .date {
-    font-size: 1.25rem;
+.dates-list li strong {
+    color: var(--primary-color);
     font-weight: 600;
-    color: var(--secondary-color);
+    margin-right: 0.5rem;
 }
 
 .deadline {
-    color: #dc2626;
+    color: #dc2626 !important;
+    font-weight: 700;
+    background: rgba(220, 38, 38, 0.1);
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+}
+
+/* Location Info */
+.location-info {
+    margin-bottom: 1.5rem;
+}
+
+.location-info h4 {
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.location-info p {
+    color: var(--text-light);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.location-map {
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Registration Content */
@@ -385,9 +473,10 @@ body {
 /* Speakers Grid */
 .speakers-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 350px));
     gap: 2rem;
     margin-top: 2rem;
+    justify-content: center;
 }
 
 .speaker-card {
@@ -560,8 +649,28 @@ body {
         grid-template-columns: 1fr;
     }
 
-    .dates-grid {
+    .dates-location-grid {
         grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .dates-container,
+    .location-container {
+        padding: 1.5rem;
+    }
+
+    .subsection-title {
+        font-size: 1.5rem;
+    }
+
+    .dates-list li {
+        font-size: 1rem;
+        padding: 0.75rem 0;
+        padding-left: 1.5rem;
+    }
+
+    .dates-list li::before {
+        top: 0.75rem;
     }
 
     .registration-content {
